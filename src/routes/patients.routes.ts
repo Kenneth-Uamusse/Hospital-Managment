@@ -9,5 +9,6 @@ patientsRouter.get("/patients", patientsController.index);
 patientsRouter.post("/patients", patientsController.create);
 patientsRouter.get("/patients/:id", patientsController.show);
 patientsRouter.put("/patients/:id", patientsController.update);
+patientsRouter.delete("/patients/:id", patientsController.delete);
 
 export default patientsRouter;
