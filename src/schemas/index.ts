@@ -7,4 +7,11 @@ const CreatePatientRequestSchema = z.object({
   phone: z.string(),
 });
 
-export default CreatePatientRequestSchema;
+const UpdatePatientRequestSchema = z.object({
+  name: z.string().optional(),
+  birthday: z.string().optional(),
+  gender: z.enum(["male", "female", "other"]).optional(),
+  phone: z.string().optional(),
+});
+
+export { CreatePatientRequestSchema, UpdatePatientRequestSchema };
