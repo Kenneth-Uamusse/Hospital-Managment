@@ -8,5 +8,6 @@ const patientsController = new PatientsController();
 patientsRouter.get("/patients", patientsController.index);
 patientsRouter.post("/patients", patientsController.create);
 patientsRouter.get("/patients/:id", patientsController.show);
+patientsRouter.put("/patients/:id", patientsController.update);
 
 export default patientsRouter;

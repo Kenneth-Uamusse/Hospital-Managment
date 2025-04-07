@@ -1,7 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import { prisma } from "../database";
-import CreatePatientRequestSchema from "../schemas";
+import {
+  CreatePatientRequestSchema,
+  UpdatePatientRequestSchema,
+} from "../schemas";
 import { HttpError } from "../errors/HttpError";
+import { Prisma } from "@prisma/client";
 
 export class PatientsController {
   index = async (req: Request, res: Response, next: NextFunction) => {
@@ -34,6 +38,28 @@ export class PatientsController {
 
       res.status(200).json(patient);
     } catch (error) {
+      next(error);
+    }
+  };
+
+  update = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const body = UpdatePatientRequestSchema.parse(req.body);
+
+      const patient = await prisma.patients.update({
+        where: { id: +req.params.id },
+        data: body,
+      });
+
+      res.status(200).json(patient);
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === "P2025"
+      ) {
+        return next(new HttpError(404, "Patient not found"));
+      }
+
       next(error);
     }
   };
