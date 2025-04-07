@@ -12,3 +12,47 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model patients {
+  id           Int            @id @default(autoincrement())
+  name         String         @db.VarChar(255)
+  birthday     String         @db.VarChar(255)
+  phone        String         @unique @db.VarChar(255)
+  appointments appointments[]
+}
+
+model doctors {
+  id            Int            @id @default(autoincrement())
+  name          String         @db.VarChar(255)
+  phone         String         @db.VarChar(255)
+  specializaton String         @db.VarChar(255)
+  appointments  appointments[]
+}
+
+model appointments {
+  id          Int             @id @default(autoincrement())
+  type        AppointmentType
+  observation String          @db.Text
+  date        DateTime        @db.Date
+
+  patient_id Int
+  doctor_id  Int
+
+  patient    patients     @relation(fields: [patient_id], references: [id])
+  doctor     doctors      @relation(fields: [doctor_id], references: [id])
+  treatments treatments[]
+}
+
+model treatments {
+  id          Int    @id @default(autoincrement())
+  pills       String @db.VarChar(255)
+  description String @db.Text
+
+  appointment_id Int
+  appointment    appointments @relation(fields: [appointment_id], references: [id])
+}
+
+enum AppointmentType {
+  Plano_de_Saude
+  Particular
+}
