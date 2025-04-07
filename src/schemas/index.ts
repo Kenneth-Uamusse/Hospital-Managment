@@ -1,10 +1,10 @@
 import z from "zod";
 
-const CreatePatientRequestSchema = {
+const CreatePatientRequestSchema = z.object({
   name: z.string(),
-  birthDate: z.string(),
+  birthday: z.string(),
   gender: z.enum(["male", "female", "other"]),
   phone: z.string(),
-};
+});
 
 export default CreatePatientRequestSchema;

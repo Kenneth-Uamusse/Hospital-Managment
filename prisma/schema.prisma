@@ -17,6 +17,7 @@ model patients {
   id           Int            @id @default(autoincrement())
   name         String         @db.VarChar(255)
   birthday     String         @db.VarChar(255)
+  gender       String         @default("Not Specified") @db.VarChar(255)
   phone        String         @unique @db.VarChar(255)
   appointments appointments[]
 }
