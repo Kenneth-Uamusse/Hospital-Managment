@@ -16,6 +16,7 @@ export class AppointmentsController {
           patient: { select: { name: true } },
         },
       });
+      
       if (appointments.length === 0) {
         throw new HttpError(404, "No appointments found");
       } else {

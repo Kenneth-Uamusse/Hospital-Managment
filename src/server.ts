@@ -5,6 +5,7 @@ import patientsRouter from "./routes/patients.routes";
 import { errorHandlerMiddleware } from "./middlewares/errorMiddleware";
 import doctorsRouter from "./routes/doctors.routes";
 import appointmentsRouter from "./routes/appointments.routes";
+import treatmentsRouter from "./routes/treatments.routes";
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use("/hcm", patientsRouter);
 app.use("/hcm", doctorsRouter);
 app.use("/hcm", appointmentsRouter);
+app.use("/hcm", treatmentsRouter)
 
 app.use(errorHandlerMiddleware);
 
