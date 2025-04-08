@@ -1,5 +1,7 @@
 import z from "zod";
 
+const AppointmentType = z.enum(["Plano_de_Saude", "Particular"]);
+
 const CreatePatientRequestSchema = z.object({
   name: z.string(),
   birthday: z.string(),
@@ -26,9 +28,23 @@ const UpdateDoctorRequestSchema = z.object({
   specialization: z.string().optional(),
 });
 
+const CreateAppointmentRequestSchema = z.object({
+  type: AppointmentType,
+  observation: z.string(),
+  date: z.coerce.date(),
+});
+
+const UpdateAppointmentRequestSchema = z.object({
+  type: AppointmentType.optional(),
+  observation: z.string().optional(),
+  date: z.coerce.date().optional(),
+});
+
 export {
   CreatePatientRequestSchema,
   UpdatePatientRequestSchema,
   CreateDoctorRequestSchema,
   UpdateDoctorRequestSchema,
+  CreateAppointmentRequestSchema,
+  UpdateAppointmentRequestSchema,
 };
