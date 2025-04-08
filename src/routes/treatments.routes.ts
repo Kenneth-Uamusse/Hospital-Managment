@@ -1,10 +1,13 @@
 import { Router } from "express";
+import { TreatmentsController } from "../controllers/Treatments.Controller";
 
 const treatmentsRouter = Router();
 
-treatmentsRouter.get("/treatments")
-treatmentsRouter.get("/treatments/:id")
-treatmentsRouter.post("/treatments")
-treatmentsRouter.put("/treatments/:id")
+const treatmentsController = new TreatmentsController();
 
-export default treatmentsRouter
+treatmentsRouter.get("/treatments", treatmentsController.index);
+treatmentsRouter.get("/treatments/:id");
+treatmentsRouter.post("/treatments");
+treatmentsRouter.put("/treatments/:id");
+
+export default treatmentsRouter;
