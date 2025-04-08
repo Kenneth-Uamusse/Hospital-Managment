@@ -32,12 +32,16 @@ const CreateAppointmentRequestSchema = z.object({
   type: AppointmentType,
   observation: z.string(),
   date: z.coerce.date(),
+  patient_id: z.number(),
+  doctor_id: z.number(),
 });
 
 const UpdateAppointmentRequestSchema = z.object({
   type: AppointmentType.optional(),
   observation: z.string().optional(),
   date: z.coerce.date().optional(),
+  patientId: z.number().optional(),
+  doctorId: z.number().optional(),
 });
 
 export {
