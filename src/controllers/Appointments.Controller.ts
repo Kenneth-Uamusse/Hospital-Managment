@@ -6,12 +6,32 @@ import { CreateAppointmentRequestSchema } from "../schemas";
 export class AppointmentsController {
   index = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const appointments = await prisma.appointments.findMany();
+      const appointments = await prisma.appointments.findMany({
+        include: {
+          doctor: { select: { name: true } },
+          patient: { select: { name: true } },
+        },
+      });
       if (appointments.length === 0) {
         throw new HttpError(404, "No appointments found");
       } else {
         res.status(200).json(appointments);
       }
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  show = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const appointment = await prisma.appointments.findUnique({
+        where: { id: +req.params.id },
+        include: { doctor: true, patient: true },
+      });
+
+      if (!appointment) throw new HttpError(404, "Appointment not found");
+
+      res.status(200).json(appointment);
     } catch (error) {
       next(error);
     }
