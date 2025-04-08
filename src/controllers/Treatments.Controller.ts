@@ -7,20 +7,35 @@ export class TreatmentsController {
   index = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const treatments = await prisma.treatments.findMany({
-        include: {
-          appointment: {
-            include: {
-              doctor: { select: { name: true } },
-              patient: { select: { name: true } },
-            },
-          },
-        },
+        include: { appointment: true },
       });
       if (treatments.length === 0) {
         throw new HttpError(200, "No treatments found");
       } else {
         res.status(200).json(treatments);
       }
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  show = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const treatment = await prisma.treatments.findUnique({
+        where: { id: Number(req.params.id) },
+        include: {
+          appointment: {
+            include: {
+              doctor: { select: { name: true, specialization: true } },
+              patient: { select: { name: true, phone: true, gender: true } },
+            },
+          },
+        },
+      });
+
+      if (!treatment) throw new HttpError(404, "Treatment not found");
+
+      res.status(200).json(treatment);
     } catch (error) {
       next(error);
     }
