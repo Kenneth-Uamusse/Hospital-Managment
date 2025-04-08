@@ -1,8 +1,11 @@
 import { Router } from "express";
+import { DoctorsController } from "../controllers/Doctors.Controller";
 
 const doctorsRouter = Router();
 
-doctorsRouter.get("/doctors");
+const doctorsController = new DoctorsController()
+
+doctorsRouter.get("/doctors", doctorsController.index);
 doctorsRouter.get("/doctors/:id");
 doctorsRouter.post("/doctors");
 doctorsRouter.put("/doctors/:id");

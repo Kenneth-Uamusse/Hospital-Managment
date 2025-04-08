@@ -3,6 +3,7 @@ import cors from "cors";
 import express from "express";
 import patientsRouter from "./routes/patients.routes";
 import { errorHandlerMiddleware } from "./middlewares/errorMiddleware";
+import doctorsRouter from "./routes/doctors.routes";
 
 const app = express();
 
@@ -10,8 +11,9 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/hcm", patientsRouter);
+app.use("/hcm", doctorsRouter);
 
-app.use(errorHandlerMiddleware)
+app.use(errorHandlerMiddleware);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
