@@ -17,13 +17,13 @@ const UpdatePatientRequestSchema = z.object({
 const CreateDoctorRequestSchema = z.object({
   name: z.string(),
   phone: z.string(),
-  specializaton: z.string(),
+  specialization: z.string(),
 });
 
 const UpdateDoctorRequestSchema = z.object({
   name: z.string().optional(),
   phone: z.string().optional(),
-  specializaton: z.string().optional(),
+  specialization: z.string().optional(),
 });
 
 export {

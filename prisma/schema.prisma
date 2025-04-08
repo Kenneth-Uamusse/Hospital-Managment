@@ -23,11 +23,11 @@ model patients {
 }
 
 model doctors {
-  id            Int            @id @default(autoincrement())
-  name          String         @db.VarChar(255)
-  phone         String         @db.VarChar(255)
-  specializaton String         @db.VarChar(255)
-  appointments  appointments[]
+  id             Int            @id @default(autoincrement())
+  name           String         @db.VarChar(255)
+  phone          String         @db.VarChar(255)
+  specialization String         @db.VarChar(255)
+  appointments   appointments[]
 }
 
 model appointments {
