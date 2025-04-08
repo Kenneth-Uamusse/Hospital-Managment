@@ -14,4 +14,21 @@ const UpdatePatientRequestSchema = z.object({
   phone: z.string().optional(),
 });
 
-export { CreatePatientRequestSchema, UpdatePatientRequestSchema };
+const CreateDoctorRequestSchema = z.object({
+  name: z.string(),
+  phone: z.string(),
+  specializaton: z.string(),
+});
+
+const UpdateDoctorRequestSchema = z.object({
+  name: z.string().optional(),
+  phone: z.string().optional(),
+  specializaton: z.string().optional(),
+});
+
+export {
+  CreatePatientRequestSchema,
+  UpdatePatientRequestSchema,
+  CreateDoctorRequestSchema,
+  UpdateDoctorRequestSchema,
+};
