@@ -7,7 +7,7 @@ const treatmentsController = new TreatmentsController();
 
 treatmentsRouter.get("/treatments", treatmentsController.index);
 treatmentsRouter.get("/treatments/:id");
-treatmentsRouter.post("/treatments");
+treatmentsRouter.post("/treatments", treatmentsController.create);
 treatmentsRouter.put("/treatments/:id");
 
 export default treatmentsRouter;
