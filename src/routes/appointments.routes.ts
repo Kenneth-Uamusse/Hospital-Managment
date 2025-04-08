@@ -1,8 +1,11 @@
 import { Router } from "express";
+import { AppointmentsController } from "../controllers/Appointments.Controller";
 
 const appointmentsRouter = Router();
 
-appointmentsRouter.get("/appointments");
+const appointmentsController = new AppointmentsController();
+
+appointmentsRouter.get("/appointments", appointmentsController.index);
 appointmentsRouter.get("/appointments");
 appointmentsRouter.post("/appointments");
 appointmentsRouter.put("/appointments");
