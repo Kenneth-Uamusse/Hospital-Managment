@@ -1,7 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import { prisma } from "../database";
 import { HttpError } from "../errors/HttpError";
-import { CreateDoctorRequestSchema } from "../schemas";
+import {
+  CreateDoctorRequestSchema,
+  UpdateDoctorRequestSchema,
+} from "../schemas";
+import { Prisma } from "@prisma/client";
 
 export class DoctorsController {
   index = async (req: Request, res: Response, next: NextFunction) => {
@@ -39,6 +43,26 @@ export class DoctorsController {
 
       res.status(201).json(newDoctor);
     } catch (error) {
+      next(error);
+    }
+  };
+
+  update = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const body = UpdateDoctorRequestSchema.parse(req.body);
+      const doctor = await prisma.doctors.update({
+        where: { id: +req.params.id },
+        data: body,
+      });
+
+      res.status(200).json(doctor);
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === "P2025"
+      ) {
+        return next(new HttpError(404, "Doctor not found"));
+      }
       next(error);
     }
   };
