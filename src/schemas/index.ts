@@ -44,6 +44,18 @@ const UpdateAppointmentRequestSchema = z.object({
   doctor_id: z.number().optional(),
 });
 
+const CreateTreatmentRequestSchema = z.object({
+  pills: z.string(),
+  description: z.string(),
+  appointment_id: z.number(),
+});
+
+const UpdateTreatmentRequestSchema = z.object({
+  pills: z.string().optional(),
+  description: z.string().optional(),
+  appointment_id: z.number().optional(),
+});
+
 export {
   CreatePatientRequestSchema,
   UpdatePatientRequestSchema,
@@ -51,4 +63,6 @@ export {
   UpdateDoctorRequestSchema,
   CreateAppointmentRequestSchema,
   UpdateAppointmentRequestSchema,
+  CreateTreatmentRequestSchema,
+  UpdateTreatmentRequestSchema,
 };
