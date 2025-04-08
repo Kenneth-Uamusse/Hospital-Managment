@@ -9,6 +9,6 @@ doctorsRouter.get("/doctors", doctorsController.index);
 doctorsRouter.get("/doctors/:id", doctorsController.show);
 doctorsRouter.post("/doctors", doctorsController.create);
 doctorsRouter.put("/doctors/:id", doctorsController.update);
-doctorsRouter.delete("/doctors/:id");
+doctorsRouter.delete("/doctors/:id", doctorsController.delete);
 
 export default doctorsRouter;

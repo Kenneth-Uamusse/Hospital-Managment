@@ -66,4 +66,19 @@ export class DoctorsController {
       next(error);
     }
   };
+
+  delete = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      await prisma.doctors.delete({ where: { id: +req.params.id } });
+      res.status(200).json({ message: "Doctor deleted successfully" });
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === "P2025"
+      ) {
+        return next(new HttpError(404, "Doctor not found"));
+      }
+      next(error);
+    }
+  };
 }
