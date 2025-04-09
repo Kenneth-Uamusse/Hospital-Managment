@@ -79,4 +79,23 @@ export class PatientsController {
       next(error);
     }
   };
+
+  showAppointments = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const patient = await prisma.patients.findUnique({
+        where: { id: +req.params.id },
+        include: { appointments: { include: { doctor: true } } },
+      });
+
+      if (!patient) throw new HttpError(404, "Patient not found!!");
+
+      res.status(200).json(patient);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

@@ -13,6 +13,9 @@ patientsRouter.put("/patients/:id", patientsController.update);
 patientsRouter.delete("/patients/:id", patientsController.delete);
 
 //PATIENTS APPOINTMENTS
-patientsRouter.get("/patients/:id/appointments");
+patientsRouter.get(
+  "/patients/:id/appointments",
+  patientsController.showAppointments
+);
 
 export default patientsRouter;
