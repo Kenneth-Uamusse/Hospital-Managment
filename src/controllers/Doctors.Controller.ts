@@ -81,4 +81,27 @@ export class DoctorsController {
       next(error);
     }
   };
+
+  showAppointments = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const doctor = await prisma.doctors.findFirst({
+        where: {
+          name: { contains: req.query.name as string, mode: "insensitive" },
+        },
+        include: {
+          appointments: { select: { observation: true, patient: true } },
+        },
+      });
+
+      if (!doctor) throw new HttpError(404, "Doctor not found");
+
+      res.status(200).json(doctor);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

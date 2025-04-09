@@ -13,5 +13,5 @@ doctorsRouter.put("/doctors/:id", doctorsController.update);
 doctorsRouter.delete("/doctors/:id", doctorsController.delete);
 
 //DOCTORS APPOINTMENTS
-doctorsRouter.get("/doctors/:id/appointments")
+doctorsRouter.get("/doctors/name/appointments", doctorsController.showAppointments)
 export default doctorsRouter;
