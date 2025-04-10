@@ -16,7 +16,7 @@ export class AppointmentsController {
           patient: { select: { name: true } },
         },
       });
-      
+
       if (appointments.length === 0) {
         throw new HttpError(404, "No appointments found");
       } else {
@@ -77,6 +77,21 @@ export class AppointmentsController {
       ) {
         return next(new HttpError(404, "Doctor not found"));
       }
+      next(error);
+    }
+  };
+
+  showByDate = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const appointment = await prisma.appointments.findMany({
+        where: { date: { equals: new Date(req.query.date as string) } },
+      });
+
+      if (appointment.length === 0)
+        throw new HttpError(404, "Appointment not found");
+
+      res.status(200).json(appointment);
+    } catch (error) {
       next(error);
     }
   };
