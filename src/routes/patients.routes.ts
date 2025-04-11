@@ -18,4 +18,10 @@ patientsRouter.get(
   patientsController.showAppointments
 );
 
+//APPOINTMENTS BY DOCTOR SPECIALIZATION
+patientsRouter.get(
+  "/patients/:id/appointments/doctor",
+  patientsController.showAppointmentsByDoctorSpecialization
+);
+
 export default patientsRouter;

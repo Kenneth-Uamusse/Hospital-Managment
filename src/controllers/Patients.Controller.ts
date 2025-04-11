@@ -98,4 +98,39 @@ export class PatientsController {
       next(error);
     }
   };
+
+  showAppointmentsByDoctorSpecialization = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const patient = await prisma.patients.findUnique({
+        where: { id: +req.params.id },
+        include: {
+          appointments: {
+            include: { doctor: true, patient: { select: { name: true } } },
+          },
+        },
+      });
+
+      if (!patient) throw new HttpError(404, "Patient not found!!");
+
+      const appointments = patient.appointments.filter(
+        (appointment) =>
+          appointment.doctor.specialization === req.query.specialization
+      );
+
+      if (appointments.length === 0) {
+        throw new HttpError(
+          404,
+          "No appointments found for this doctors's specialization"
+        );
+      }
+
+      res.status(200).json(appointments);
+    } catch (error) {
+      next(error);
+    }
+  };
 }
