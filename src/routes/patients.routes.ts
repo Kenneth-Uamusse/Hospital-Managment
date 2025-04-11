@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { PatientsController } from "../controllers/Patients.Controller";
+import { PatientsController } from "../controllers/crud/Patients.Controller";
 
 const patientsRouter = Router();
 

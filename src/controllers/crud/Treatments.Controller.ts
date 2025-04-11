@@ -1,11 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { prisma } from "../database";
-import { HttpError } from "../errors/HttpError";
-import {
-  CreateTreatmentRequestSchema,
-  UpdateTreatmentRequestSchema,
-} from "../schemas";
 import { Prisma } from "@prisma/client";
+import { prisma } from "../../database";
+import { HttpError } from "../../errors/HttpError";
+import { CreateTreatmentRequestSchema, UpdateTreatmentRequestSchema } from "../../schemas";
 
 export class TreatmentsController {
   index = async (req: Request, res: Response, next: NextFunction) => {

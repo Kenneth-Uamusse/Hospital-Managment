@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
-import { prisma } from "../database";
-import { HttpError } from "../errors/HttpError";
+import { prisma } from "../../database";
+import { Prisma } from "@prisma/client";
+import { HttpError } from "../../errors/HttpError";
 import {
   CreateAppointmentRequestSchema,
   UpdateAppointmentRequestSchema,
-} from "../schemas";
-import { Prisma } from "@prisma/client";
+} from "../../schemas";
 
 export class AppointmentsController {
   index = async (req: Request, res: Response, next: NextFunction) => {
